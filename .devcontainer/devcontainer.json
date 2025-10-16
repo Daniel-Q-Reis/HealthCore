@@ -1,0 +1,37 @@
+{
+  "name": "HealthCore",
+
+  // Use the existing docker-compose.yml to orchestrate the services.
+  "dockerComposeFile": ["../docker-compose.yml", "../docker-compose.override.yml"],
+
+  // The 'app' service from docker-compose will be our development environment.
+  "service": "app",
+
+  // The VS Code workspace folder should be the one inside the container.
+  "workspaceFolder": "/app",
+
+  // Map container ports to the local machine if needed.
+  // Port 8000 is already mapped in docker-compose.
+
+  // Install recommended VS Code extensions inside the container.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-python.black-formatter",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+
+  // Commands to run after the container is created.
+  // Useful for installing pre-commit hooks or other tools.
+  "postCreateCommand": "pre-commit install",
+
+  // Run as a non-root user for better security.
+  // The project's Dockerfile already creates the 'django' user.
+  "remoteUser": "django"
+}

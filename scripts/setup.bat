@@ -32,12 +32,5 @@ if not exist ".env" (
     copy .env.example .env
 )
 
-REM Run migrations
-echo Running migrations...
-python manage.py migrate
-
-REM Create superuser if it doesn't exist
-echo Creating superuser if it doesn't exist...
-python manage.py createsuperuser_if_none_exists --username admin --email admin@example.com --password admin123
-
-echo Setup complete! You can now run the development server with: python manage.py runserver
+echo Local setup complete. Pre-commit hooks are installed.
+echo To run the project, use the Docker scripts (e.g., scripts\run_docker.bat).

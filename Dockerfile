@@ -30,6 +30,7 @@ FROM base AS production
 COPY . /app/
 
 # Collect static files
+ENV BUILD_ENVIRONMENT=true
 RUN python manage.py collectstatic --noinput
 
 # Create a non-root user

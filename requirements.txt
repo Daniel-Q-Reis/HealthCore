@@ -13,7 +13,7 @@ python-decouple>=3.8,<4.0
 
 # Celery and Redis
 celery>=5.3,<6.0
-redis>=4.5,<5.0
+redis>=5.0,<6.0
 django-redis>=5.2,<6.0
 
 # Production and Deployment
@@ -24,6 +24,7 @@ boto3>=1.28,<2.0           # AWS SDK for Python, required by django-storages
 # Utilities
 python-json-logger>=2.0,<3.0
 django-filter>=23.2,<24.0
+django-health-check>=3.17,<4.0
 
 # Testing
 pytest>=7.3,<8.0

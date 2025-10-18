@@ -54,6 +54,24 @@ INSTALLED_APPS = [
     "storages",
 ]
 
+# Conditionally add apps that require external services only when not in a build environment.
+# This prevents errors during the Docker build process (e.g., collectstatic).
+is_build_env = os.environ.get("BUILD_ENVIRONMENT", "false").lower() in (
+    "true",
+    "1",
+    "yes",
+)
+
+# Add health check apps only if not in a build environment and if the package is installed.
+# This prevents errors during Docker builds and mypy checks.
+if not is_build_env:
+    try:
+        import health_check  # noqa: F401
+
+        INSTALLED_APPS.extend(["health_check", "health_check.db", "health_check.cache"])
+    except ImportError:
+        pass
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -192,6 +210,6 @@ CACHES = {
     }
 }
 
-# Session Configuration
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+# # Session Configuration
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
